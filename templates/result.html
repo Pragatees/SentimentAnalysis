@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #4a4e69;
+            animation: fadeIn 2s;
+        }
+
+        p, h2, h3 {
+            color: #22223b;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+
+        h2, h3 {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            animation: fadeIn 2s;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4a4e69;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4a4e69;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #22223b;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border: 2px solid #4a4e69;
+            border-radius: 10px;
+            animation: zoomIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Sentiment Analysis Result</h1>
+    <p>Polarity: {{ sentiment.polarity }}</p>
+    <p>Subjectivity: {{ sentiment.subjectivity }}</p>
+    <p>
+        Sentiment: 
+        {% if sentiment.polarity > 0 %}
+            Positive 😊
+        {% elif sentiment.polarity < 0 %}
+            Negative 😠
+        {% else %}
+            Neutral 😐
+        {% endif %}
+    </p>
+    <h2>Visualization</h2>
+    <img src="data:image/png;base64,{{ plot_url }}" alt="Sentiment Analysis Plot">
+    
+    <h2>Token Sentiment Distribution</h2>
+    <img src="data:image/png;base64,{{ token_plot_url }}" alt="Token Sentiment Distribution Plot">
+
+    <h2>Token Sentiment</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Token</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for token, score in token_sentiments.positives %}
+            <tr>
+                <td>Positive</td>
+                <td>{{ token }}</td>
+                <td>{{ score }}</td>
+            </tr>
+            {% endfor %}
+            {% for token, score in token_sentiments.negatives %}
+            <tr>
+                <td>Negative</td>
+                <td>{{ token }}</td>
+                <td>{{ score }}</td>
+            </tr>
+            {% endfor %}
+            {% for token in token_sentiments.neutral %}
+            <tr>
+                <td>Neutral</td>
+                <td>{{ token }}</td>
+                <td>N/A</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/">Go back</a>
+</body>
+</html>
