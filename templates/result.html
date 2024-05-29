@@ -76,10 +76,19 @@
             background-color: #22223b;
         }
 
+        .graphs-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            animation: fadeIn 2s;
+        }
+
         img {
             max-width: 100%;
             height: auto;
-            margin-top: 20px;
             border: 2px solid #4a4e69;
             border-radius: 10px;
             animation: zoomIn 2s;
@@ -119,11 +128,11 @@
         {% endif %}
     </p>
     <h2>Visualization</h2>
-    <img src="data:image/png;base64,{{ plot_url }}" alt="Sentiment Analysis Plot">
+    <div class="graphs-container">
+        <img src="data:image/png;base64,{{ plot_url }}" alt="Sentiment Analysis Plot">
+        <img src="data:image/png;base64,{{ token_plot_url }}" alt="Token Sentiment Distribution Plot">
+    </div>
     
-    <h2>Token Sentiment Distribution</h2>
-    <img src="data:image/png;base64,{{ token_plot_url }}" alt="Token Sentiment Distribution Plot">
-
     <h2>Token Sentiment</h2>
     <table>
         <thead>
