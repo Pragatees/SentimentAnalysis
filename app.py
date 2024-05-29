@@ -52,13 +52,13 @@ def index():
             token_sentiments = analyze_token_sentiment(raw_text)
             pos_count = len(token_sentiments['positives'])
             neg_count = len(token_sentiments['negatives'])
-            neu_count = len(token_sentiments['neutral'])
+            
 
             # Generate Matplotlib plot for token sentiment distribution
             token_img = io.BytesIO()
             token_df = pd.DataFrame({
-                'Sentiment': ['Positive', 'Negative', 'Neutral'],
-                'Count': [pos_count, neg_count, neu_count]
+                'Sentiment': ['Positive', 'Negative'],
+                'Count': [pos_count, neg_count]
             })
             token_df.plot(kind='bar', x='Sentiment', y='Count', color=['green', 'red', 'gray'])
             plt.title('Token Sentiment Distribution')
