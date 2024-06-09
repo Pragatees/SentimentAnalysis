@@ -11,9 +11,8 @@ In the Second Page ->
 
 Modules need to Install
 
-Step 1 ->   pip install Flask textblob vaderSentiment pandas altair matplotlib
-Step 2 ->   python -m venv venv
-Step 3 ->   python app.py
+        Step 1 ->   pip install Flask textblob vaderSentiment pandas altair matplotlib
+        Step 2 ->   python app.py
 
 
 These are following steps are used to run this project in Visual Studio Code
